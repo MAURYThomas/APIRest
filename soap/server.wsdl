@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<definitions name="apiClient" targetNamespace="urn:apiClient"
+xmlns:typens="urn:apiClient"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+
+xmlns="http://schemas.xmlsoap.org/wsdl/"
+xmlns:typens0="http://localhost/WebService/soap/AccessServer.php">
+
+<message name="rechercheClient">
+	<part name="nom"/>
+</message>
+<message name="clientReponse">
+		<part name="clientReturn"/>
+</message>
+<portType name="essai_instancePortType">
+	<operation name="rechercheClient">
+		<input message="typens:rechercheClient"/>
+		<output message="typens:clientReponse"/>
+	</operation>
+</portType>
+
+<binding name="essai_instanceBinding" type="typens:essai_instancePortType">
+	<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+	<operation name="rechercheClient">
+		<soap:operation soapAction="urn:essai_instanceAction"/>
+	<input>
+		<soap:body namespace="urn:apiClient" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+	</input>
+	<output>
+		<soap:body namespace="urn:apiClient" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+	</output>
+	</operation>
+</binding>
+
+<service name="apiClientService">
+	<port name="essai_instancePort" binding="typens:essai_instanceBinding">
+		<soap:address location="http://localhost/WebService/soap/AccessServer.php"/>
+	</port>
+</service>
+</definitions>
