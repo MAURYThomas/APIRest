@@ -1,11 +1,11 @@
 <?php
 class Client{
  
-    // database connection and table name
+    // connection a la base (api_db)
     private $conn;
-    private $table_name = "client";
+    private $table_name = "clients";
  
-    // object properties
+    // objets
     public $id;
     public $nom;
     public $prenom;
@@ -13,14 +13,14 @@ class Client{
     public $ville;
     public $cp;
  
-    // constructor with $db as database connection
+    // Constructeur avec $db la base phpmyadmin
     public function __construct($db){
         $this->conn = $db;
     }
 // read clients
 function read(){
  
-    // select all query
+    // requete
     $query = "SELECT
                 'Ref contact (Id)', Nom, Prénom, Adresse, Ville, 'Code Postal'
             FROM
@@ -29,47 +29,46 @@ function read(){
             ORDER BY
                 'Ref contact (Id)' DESC";
  
-    // prepare query statement
+    // prepare une requete pour l'executer en boucle
     $stmt = $this->conn->prepare($query);
  
-    // execute query
+    // execute la requete
     $stmt->execute();
  
     return $stmt;
 }
 
-// create client
-function create(){
+// recherche client(s)
+function search($keywords){
  
-    // query to insert record
-    $query = "INSERT INTO
+    // select all query
+    $query = "SELECT
+                'Ref contact (Id)', Nom, Prénom, Adresse, Ville, 'Code Postal'
+            FROM
                 " . $this->table_name . "
-            SET
-                nom=:nom, prenom=:prenom, adresse=:adresse, ville=:ville, cp=:cp";
+            WHERE
+            'Ref contact (Id)' LIKE ? OR Nom LIKE ? OR Prénom LIKE ? or Adresse LIKE ? or Ville LIKE ? or 'Code Postal' LIKE ?
+            ORDER BY
+                'Ref contact (Id)' DESC";
  
-    // prepare query
+    // prepare query statement
     $stmt = $this->conn->prepare($query);
  
-    // sanitize
-    $this->nom=htmlspecialchars(strip_tags($this->nom));
-    $this->prenom=htmlspecialchars(strip_tags($this->prenom));
-    $this->adresse=htmlspecialchars(strip_tags($this->adresse));
-    $this->ville=htmlspecialchars(strip_tags($this->ville));
-    $this->cp=htmlspecialchars(strip_tags($this->cp));
+    // encode le texte correctement et supprime tout ce qui est balise html etc...
+    $keywords=htmlspecialchars(strip_tags($keywords));
+    $keywords = "%{$keywords}%";
  
-    // bind values
-    $stmt->bindParam(":nom", $this->nom);
-    $stmt->bindParam(":prenom", $this->prenom);
-    $stmt->bindParam(":adresse", $this->adresse);
-    $stmt->bindParam(":ville", $this->ville);
-    $stmt->bindParam(":cp", $this->cp);
+    // bind (semble lié les variables $keywords à un indexage)
+    $stmt->bindParam(1, $keywords);
+    $stmt->bindParam(2, $keywords);
+    $stmt->bindParam(3, $keywords);
+    $stmt->bindParam(4, $keywords);
+    $stmt->bindParam(5, $keywords);
+    $stmt->bindParam(6, $keywords);
  
-    // execute query
-    if($stmt->execute()){
-        return true;
-    }
+    // execute la requete
+    $stmt->execute();
  
-    return false;
-     
+    return $stmt;
 }
 }
