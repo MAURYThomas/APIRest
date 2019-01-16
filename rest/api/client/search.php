@@ -38,12 +38,12 @@ if($num>0){
         extract($row);
  
         $client_item=array(
-            "id" => $id,
-            "name" => $name,
-            "description" => html_entity_decode($description),
-            "price" => $price,
-            "category_id" => $category_id,
-            "category_name" => $category_name
+            "Ref contact (Id)" => $id,
+            "Nom" => $nom,
+            "Prénom" => $prenom,
+            "Adresse" => $adresse,
+            "Ville" => $ville,
+            "Code Postal" => $cp
         );
  
         array_push($clients_arr["records"], $client_item);
@@ -52,7 +52,7 @@ if($num>0){
     // set response code - 200 OK
     http_response_code(200);
  
-    // affiche les données clients récuperés
+    // affiche les données clients récuperées
     echo json_encode($clients_arr);
 }
  
@@ -60,7 +60,7 @@ else{
     // set response code - 404 Not found
     http_response_code(404);
  
-    // si aucun client n'est trouvé dans la BDD
+    // si aucun client n'est trouvé dans la BDD ($row=0)
     echo json_encode(
         array("message" => "No clients found.")
     );

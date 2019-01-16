@@ -47,7 +47,7 @@ function search($keywords){
             FROM
                 " . $this->table_name . "
             WHERE
-            'Ref contact (Id)' LIKE ? OR Nom LIKE ? OR Prénom LIKE ? or Adresse LIKE ? or Ville LIKE ? or 'Code Postal' LIKE ?
+            'Ref contact (Id)' LIKE ? or Nom LIKE ? OR Prénom LIKE ? or Adresse LIKE ? or Ville LIKE ? or 'Code Postal' LIKE ?
             ORDER BY
                 'Ref contact (Id)' DESC";
  
