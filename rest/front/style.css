@@ -1,0 +1,21 @@
+h1, h3 {
+    color: blue;
+    font-family: Vavaldi;
+    border: solid;
+    width: 40%;
+}
+.titre-principal {
+    color: green;
+    background-color: greenyellow;
+}
+body {
+    background-color: whitesmoke;
+}
+div {
+    width:40%;
+}
+@media only screen and (max-width: 768px) {
+    div {
+        width: 40%;
+    }
+}
