@@ -1,4 +1,4 @@
-h1, h3 {
+h3 {
     color: blue;
     font-family: Vavaldi;
     border: solid;
@@ -6,7 +6,7 @@ h1, h3 {
 }
 .titre-principal {
     color: green;
-    background-color: greenyellow;
+    text-decoration-style : solid;
 }
 body {
     background-color: whitesmoke;

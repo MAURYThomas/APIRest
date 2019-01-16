@@ -16,7 +16,7 @@ $db = $database->getConnection();
 $client = new client($db);
  
 // get keywords et verifie leur existance
-$keywords=isset($_GET["s"]) ? $_GET["s"] : "";
+$keywords=isset($_GET["id"]) ? $_GET["id"] : "";
  
 // requete clients
 $stmt = $client->search($keywords);
