@@ -1,5 +1,5 @@
 <?php
-class Client{
+class Product{
  
     // database connection and table name
     private $conn;
@@ -7,26 +7,27 @@ class Client{
  
     // object properties
     public $id;
-    public $nom;
-    public $prenom;
-    public $adresse;
-    public $ville;
-    public $cp;
+    public $name;
+    public $description;
+    public $price;
+    public $category_id;
+    public $category_name;
+    public $created;
  
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
     }
-// read clients
+// read products
 function read(){
  
     // select all query
     $query = "SELECT
-                'Ref contact (Id)', Nom, Prénom, Adresse, Ville, 'Code Postal'
+                Nom, Prénom, Adresse, Ville, 'Code Postal'
             FROM
-               " . $this->table_name . "   
+                " . $this->table_name . "
             ORDER BY
-                'Ref contact (Id)' DESC";
+                Nom DESC";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
